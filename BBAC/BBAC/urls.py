@@ -19,6 +19,9 @@ from django.urls import path, include
 
 from rest_framework import routers
 from club.views import MemberViewSet, EventViewSet, ParticipationViewSet
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView
+)
 
 router = routers.DefaultRouter()
 router.register(r'members', MemberViewSet) 
@@ -27,5 +30,10 @@ router.register(r'participations', ParticipationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+
+    # Authentication routes
+    
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh')
 ]
