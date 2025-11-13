@@ -31,5 +31,20 @@ class Event(models.Model):
     def __str__(self):
         return f'{self.title}({self.date.strftime('%d-%m-%Y')})'
 
+class Participation(models.Model):
+    member = models.ForeignKey(Member,on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    attended = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        unique_together = ('member', 'event') # prevents duplicate participation
+
+    def __str__(self):
+        status = "Attend" if self.attended else "Registered"
+        return f"{self.member.name} - {self.event.title}({status})"
+
+
 
     

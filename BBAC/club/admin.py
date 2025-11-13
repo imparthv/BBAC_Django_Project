@@ -16,3 +16,11 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ('event_date',)
     list_filter = ('title','location')
 
+@admin.register(Participation)
+class ParticipationAdmin(admin.ModelAdmin):
+    list_display = ('member', 'event', 'attended', 'timestamp')
+    list_filter = ('attended', 'event')
+    search_fields = ('member_name', 'event_title')
+
+
+
