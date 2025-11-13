@@ -21,3 +21,15 @@ class Member(models.Model):
     def __str__(self):
         return f"{self.name}({self.role})"
     
+class Event(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    event_date = models.DateField()
+    location = models.CharField(max_length=255)
+    created_by = models.ForeignKey(Member, on_delete=models.CASCADE, related_name = 'events_crated')
+
+    def __str__(self):
+        return f'{self.title}({self.date.strftime('%d-%m-%Y')})'
+
+
+    
